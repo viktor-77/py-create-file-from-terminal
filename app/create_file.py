@@ -30,28 +30,32 @@ def write_text_to_file(
         file.write(file_content)
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-d", nargs="+")
-parser.add_argument("-f")
-args = parser.parse_args()
+def create_file() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", nargs="+")
+    parser.add_argument("-f")
+    args = parser.parse_args()
 
-path = os.getcwd()
+    path = os.getcwd()
 
-if args.d:
-    path = os.path.join(path, *args.d)
-    os.makedirs(path, exist_ok=True)
+    if args.d:
+        path = os.path.join(path, *args.d)
+        os.makedirs(path, exist_ok=True)
 
-if args.f:
-    path = os.path.join(path, args.f)
+    if args.f:
+        path = os.path.join(path, args.f)
 
-    if os.path.exists(path):
-        write_text_to_file(
-            path,
-            f"\n\n{get_user_input(is_file_exist=True)}",
-            "a"
-        )
-    else:
-        write_text_to_file(
-            path,
-            get_user_input()
-        )
+        if os.path.exists(path):
+            write_text_to_file(
+                path,
+                f"\n\n{get_user_input(is_file_exist=True)}",
+                "a"
+            )
+        else:
+            write_text_to_file(
+                path,
+                get_user_input()
+            )
+
+
+create_file()
